@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FROG PFP — 100 Pixel Frogs on Ethereum</title>
-<meta name="description" content="A curated collection of 100 unique animated pixel art frogs. Mint yours for 0.001 ETH.">
+<title>FROG PFP — 100 Unique Frogs on Ethereum</title>
+<meta name="description" content="A curated collection of 100 unique animated frogs. Mint yours for 0.001 ETH.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -197,7 +197,6 @@ body {
 }
 .hero-showcase canvas {
   width: 100%; height: 100%; display: block;
-  image-rendering: pixelated;
 }
 .hero-showcase .overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
@@ -459,7 +458,6 @@ body {
 }
 .frog-card .img-wrap canvas {
   width: 100%; height: 100%; display: block;
-  image-rendering: pixelated;
   transition: transform 0.5s var(--ease);
 }
 .frog-card:hover .img-wrap canvas { transform: scale(1.08); }
@@ -726,7 +724,7 @@ body {
     </div>
     <div class="hero-right">
       <div class="hero-showcase">
-        <canvas id="heroCanvas" width="16" height="16"></canvas>
+        <canvas id="heroCanvas" width="256" height="256"></canvas>
         <div class="overlay">
           <div class="rarity-badge" id="heroRarity">Legendary</div>
           <div class="frog-name" id="heroName">Frog #042</div>
@@ -768,7 +766,7 @@ body {
   </div>
   <div class="mint-grid">
     <div class="mint-preview reveal">
-      <canvas id="mintCanvas" width="16" height="16"></canvas>
+      <canvas id="mintCanvas" width="256" height="256"></canvas>
     </div>
     <div class="mint-form reveal">
       <div class="mint-progress-wrap">
@@ -1022,97 +1020,240 @@ function getRarity(i) {
 }
 
 function drawFrog(canvas, seed) {
-  const s = canvas.getContext('2d');
-  const W = 16, H = 16;
-  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const S = 256;
+  canvas.width = S; canvas.height = S;
   const rng = n => { n = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return n - Math.floor(n); };
+  const pick = (arr, n) => arr[Math.floor(rng(n) * arr.length)];
 
-  // Background
-  const bgH = Math.floor(rng(seed + 99) * 360);
-  const bgS = Math.floor(rng(seed + 98) * 20 + 10);
-  const bgL = Math.floor(rng(seed + 97) * 15 + 5);
-  s.fillStyle = `hsl(${bgH},${bgS}%,${bgL}%)`;
-  s.fillRect(0, 0, W, H);
+  // Colors
+  const hue = Math.floor(rng(seed) * 120 + 70);
+  const sat = Math.floor(rng(seed + 1) * 25 + 65);
+  const bodyLight = Math.floor(rng(seed + 2) * 12 + 38);
+  const body = `hsl(${hue},${sat}%,${bodyLight}%)`;
+  const bodyDark = `hsl(${hue},${sat}%,${bodyLight - 10}%)`;
+  const belly = `hsl(${hue},${sat - 15}%,${bodyLight + 18}%)`;
+  const bellyLight = `hsl(${hue},${sat - 10}%,${bodyLight + 25}%)`;
 
-  // Body
-  const hue = Math.floor(rng(seed) * 100 + 90);
-  const sat = Math.floor(rng(seed + 1) * 30 + 60);
-  const bodyColor = `hsl(${hue},${sat}%,40%)`;
-  const bellyColor = `hsl(${hue},${sat - 10}%,55%)`;
+  // Background types
+  const bgType = Math.floor(rng(seed + 90) * 6);
+  const bgGrad = ctx.createLinearGradient(0, 0, S, S);
+  if (bgType === 0) { bgGrad.addColorStop(0, '#1a1a2e'); bgGrad.addColorStop(1, '#16213e'); }
+  else if (bgType === 1) { bgGrad.addColorStop(0, '#0f0c29'); bgGrad.addColorStop(1, '#302b63'); }
+  else if (bgType === 2) { bgGrad.addColorStop(0, '#200122'); bgGrad.addColorStop(1, '#6f0000'); }
+  else if (bgType === 3) { bgGrad.addColorStop(0, '#0d1117'); bgGrad.addColorStop(1, '#161b22'); }
+  else if (bgType === 4) { bgGrad.addColorStop(0, '#1b1b2f'); bgGrad.addColorStop(1, '#162447'); }
+  else { bgGrad.addColorStop(0, '#0a0a0a'); bgGrad.addColorStop(1, '#1a1a1a'); }
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, S, S);
 
-  // Body shape
-  s.fillStyle = bodyColor;
-  s.fillRect(4, 5, 8, 8);
-  s.fillRect(3, 6, 10, 6);
-  s.fillRect(5, 13, 2, 2);
-  s.fillRect(9, 13, 2, 2);
-
-  // Belly
-  s.fillStyle = bellyColor;
-  s.fillRect(5, 8, 6, 4);
-
-  // Eyes
-  const eyeSize = Math.floor(rng(seed + 2) * 2) + 2;
-  s.fillStyle = '#fff';
-  s.fillRect(4, 4, eyeSize + 1, eyeSize + 1);
-  s.fillRect(11 - 1, 4, eyeSize + 1, eyeSize + 1);
-  // Pupils
-  s.fillStyle = '#000';
-  const px1 = Math.floor(rng(seed + 7) * 2) + 4;
-  const py1 = Math.floor(rng(seed + 8) * 2) + 4;
-  const px2 = Math.floor(rng(seed + 9) * 2) + 10;
-  const py2 = Math.floor(rng(seed + 10) * 2) + 4;
-  s.fillRect(px1, py1, 2, 2);
-  s.fillRect(px2, py2, 2, 2);
-  // Highlights
-  s.fillStyle = '#fff';
-  s.fillRect(px1, py1, 1, 1);
-  s.fillRect(px2, py2, 1, 1);
-
-  // Mouth
-  s.fillStyle = `hsl(${hue},${sat}%,30%)`;
-  if (rng(seed + 11) > 0.5) {
-    s.fillRect(6, 11, 4, 1);
+  // Background pattern (subtle grid or dots)
+  ctx.globalAlpha = 0.03;
+  if (rng(seed + 91) > 0.5) {
+    for (let x = 0; x < S; x += 16) for (let y = 0; y < S; y += 16) {
+      ctx.fillStyle = '#fff'; ctx.fillRect(x, y, 1, 1);
+    }
   } else {
-    s.fillRect(7, 11, 2, 1);
-    s.fillRect(6, 12, 4, 1);
+    for (let x = 0; x < S; x += 24) for (let y = 0; y < S; y += 24) {
+      ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
+    }
   }
+  ctx.globalAlpha = 1;
 
-  // Hat
-  const hat = Math.floor(rng(seed + 3) * 5);
-  if (hat === 1) {
-    const hc = `hsl(${Math.floor(rng(seed+5)*360)},60%,50%)`;
-    s.fillStyle = hc;
-    s.fillRect(5, 1, 6, 4);
-    s.fillRect(3, 4, 10, 2);
-  } else if (hat === 2) {
-    s.fillStyle = '#f59e0b';
-    s.fillRect(6, 1, 4, 1);
-    s.fillRect(5, 2, 6, 3);
-  } else if (hat === 3) {
-    s.fillStyle = '#ef4444';
-    s.fillRect(7, 1, 2, 1);
-    s.fillRect(6, 2, 4, 3);
-    s.fillStyle = '#fff';
-    s.fillRect(7, 2, 2, 1);
-  } else if (hat === 4) {
-    s.fillStyle = '#3b82f6';
-    s.fillRect(6, 2, 4, 1);
-    s.fillRect(5, 3, 6, 2);
-    s.fillStyle = '#fff';
-    s.fillRect(6, 3, 4, 1);
-  }
-
-  // Cheeks
-  if (rng(seed + 12) > 0.6) {
-    s.fillStyle = `hsl(${hue + 20},${sat}%,55%)`;
-    s.fillRect(3, 8, 1, 2);
-    s.fillRect(12, 8, 1, 2);
-  }
+  // ─── BODY ───
+  const cx = S / 2, cy = S / 2 + 20;
 
   // Shadow
-  s.fillStyle = 'rgba(0,0,0,0.15)';
-  s.fillRect(4, 14, 8, 1);
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.beginPath(); ctx.ellipse(cx, cy + 85, 70, 15, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Back legs
+  const legGrad = ctx.createLinearGradient(0, cy + 20, 0, cy + 80);
+  legGrad.addColorStop(0, body); legGrad.addColorStop(1, bodyDark);
+  ctx.fillStyle = legGrad;
+  // Left leg
+  ctx.beginPath(); ctx.ellipse(cx - 55, cy + 55, 30, 40, -0.3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx - 70, cy + 75, 28, 15, 0, 0, Math.PI * 2); ctx.fill();
+  // Right leg
+  ctx.beginPath(); ctx.ellipse(cx + 55, cy + 55, 30, 40, 0.3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + 70, cy + 75, 28, 15, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Toes
+  ctx.fillStyle = bodyDark;
+  for (let i = -1; i <= 1; i++) {
+    ctx.beginPath(); ctx.ellipse(cx - 70 + i * 15, cy + 85, 8, 6, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 70 + i * 15, cy + 85, 8, 6, 0, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // Body main
+  const bodyGrad = ctx.createRadialGradient(cx - 20, cy - 30, 10, cx, cy + 10, 90);
+  bodyGrad.addColorStop(0, bellyLight); bodyGrad.addColorStop(0.5, belly); bodyGrad.addColorStop(1, body);
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath(); ctx.ellipse(cx, cy + 10, 75, 65, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Belly highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  ctx.beginPath(); ctx.ellipse(cx, cy + 20, 50, 40, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Front arms
+  ctx.fillStyle = body;
+  ctx.beginPath(); ctx.ellipse(cx - 60, cy + 10, 18, 30, -0.5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + 60, cy + 10, 18, 30, 0.5, 0, Math.PI * 2); ctx.fill();
+  // Front feet
+  ctx.fillStyle = bodyDark;
+  ctx.beginPath(); ctx.ellipse(cx - 68, cy + 35, 14, 8, -0.3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + 68, cy + 35, 14, 8, 0.3, 0, Math.PI * 2); ctx.fill();
+
+  // ─── HEAD ───
+  const headCy = cy - 55;
+
+  // Head shape
+  const headGrad = ctx.createRadialGradient(cx - 15, headCy - 20, 5, cx, headCy, 65);
+  headGrad.addColorStop(0, bellyLight); headGrad.addColorStop(0.4, belly); headGrad.addColorStop(1, body);
+  ctx.fillStyle = headGrad;
+  ctx.beginPath(); ctx.ellipse(cx, headCy, 65, 50, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Cheek blush
+  if (rng(seed + 12) > 0.4) {
+    ctx.fillStyle = `hsla(${hue + 15}, 70%, 65%, 0.2)`;
+    ctx.beginPath(); ctx.ellipse(cx - 45, headCy + 15, 15, 10, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 45, headCy + 15, 15, 10, 0, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // ─── EYES ───
+  const eyeSize = Math.floor(rng(seed + 2) * 8) + 22;
+  const eyeSpread = Math.floor(rng(seed + 3) * 10) + 25;
+
+  // Eye whites
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.ellipse(cx - eyeSpread, headCy - 10, eyeSize, eyeSize * 1.1, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + eyeSpread, headCy - 10, eyeSize, eyeSize * 1.1, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Eye outline
+  ctx.strokeStyle = bodyDark; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.ellipse(cx - eyeSpread, headCy - 10, eyeSize, eyeSize * 1.1, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(cx + eyeSpread, headCy - 10, eyeSize, eyeSize * 1.1, 0, 0, Math.PI * 2); ctx.stroke();
+
+  // Pupils
+  const pupilSize = eyeSize * 0.55;
+  const lookX = (rng(seed + 7) - 0.5) * 8;
+  const lookY = (rng(seed + 8) - 0.5) * 6;
+  ctx.fillStyle = '#111';
+  ctx.beginPath(); ctx.ellipse(cx - eyeSpread + lookX, headCy - 10 + lookY, pupilSize, pupilSize * 1.1, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + eyeSpread + lookX, headCy - 10 + lookY, pupilSize, pupilSize * 1.1, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Eye highlights
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.arc(cx - eyeSpread + lookX + 6, headCy - 14 + lookY, 5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + eyeSpread + lookX + 6, headCy - 14 + lookY, 5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx - eyeSpread + lookX - 3, headCy - 6 + lookY, 2.5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + eyeSpread + lookX - 3, headCy - 6 + lookY, 2.5, 0, Math.PI * 2); ctx.fill();
+
+  // Eyelids (half-closed for some)
+  if (rng(seed + 13) > 0.7) {
+    ctx.fillStyle = body;
+    ctx.beginPath(); ctx.ellipse(cx - eyeSpread, headCy - 10 - eyeSize * 0.3, eyeSize + 2, eyeSize * 0.5, 0, Math.PI, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + eyeSpread, headCy - 10 - eyeSize * 0.3, eyeSize + 2, eyeSize * 0.5, 0, Math.PI, Math.PI * 2); ctx.fill();
+  }
+
+  // ─── MOUTH ───
+  ctx.strokeStyle = bodyDark; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
+  const mouthType = Math.floor(rng(seed + 11) * 4);
+  if (mouthType === 0) { // Smile
+    ctx.beginPath(); ctx.arc(cx, headCy + 12, 18, 0.1, Math.PI - 0.1); ctx.stroke();
+  } else if (mouthType === 1) { // Big grin
+    ctx.beginPath(); ctx.arc(cx, headCy + 10, 22, 0.2, Math.PI - 0.2); ctx.stroke();
+    ctx.fillStyle = '#2a1a1a';
+    ctx.beginPath(); ctx.arc(cx, headCy + 12, 18, 0.2, Math.PI - 0.2); ctx.fill();
+  } else if (mouthType === 2) { // Cat mouth :3
+    ctx.beginPath(); ctx.moveTo(cx - 12, headCy + 16); ctx.quadraticCurveTo(cx - 5, headCy + 22, cx, headCy + 16); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, headCy + 16); ctx.quadraticCurveTo(cx + 5, headCy + 22, cx + 12, headCy + 16); ctx.stroke();
+  } else { // Open mouth
+    ctx.fillStyle = '#2a1a1a';
+    ctx.beginPath(); ctx.ellipse(cx, headCy + 18, 14, 10, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#d44';
+    ctx.beginPath(); ctx.ellipse(cx, headCy + 22, 10, 4, 0, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // Nostrils
+  ctx.fillStyle = bodyDark;
+  ctx.beginPath(); ctx.arc(cx - 10, headCy - 2, 2.5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + 10, headCy - 2, 2.5, 0, Math.PI * 2); ctx.fill();
+
+  // ─── ACCESSORIES ───
+  const acc = Math.floor(rng(seed + 3) * 8);
+
+  if (acc === 1) { // Crown
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath(); ctx.moveTo(cx - 30, headCy - 45); ctx.lineTo(cx - 20, headCy - 65); ctx.lineTo(cx - 10, headCy - 45);
+    ctx.lineTo(cx, headCy - 70); ctx.lineTo(cx + 10, headCy - 45); ctx.lineTo(cx + 20, headCy - 65); ctx.lineTo(cx + 30, headCy - 45);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath(); ctx.arc(cx, headCy - 55, 4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx - 18, headCy - 50, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx + 18, headCy - 50, 3, 0, Math.PI * 2); ctx.fill();
+  } else if (acc === 2) { // Top hat
+    ctx.fillStyle = '#1a1a1a';
+    ctx.beginPath(); ctx.ellipse(cx, headCy - 42, 45, 8, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillRect(cx - 28, headCy - 85, 56, 45);
+    ctx.fillStyle = '#333';
+    ctx.fillRect(cx - 28, headCy - 55, 56, 8);
+  } else if (acc === 3) { // Beanie
+    const beanieHue = Math.floor(rng(seed + 20) * 360);
+    ctx.fillStyle = `hsl(${beanieHue},60%,45%)`;
+    ctx.beginPath(); ctx.ellipse(cx, headCy - 42, 50, 10, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx, headCy - 60, 35, 30, 0, Math.PI, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    for (let i = -2; i <= 2; i++) {
+      ctx.fillRect(cx + i * 14 - 2, headCy - 50, 4, 30);
+    }
+    ctx.beginPath(); ctx.arc(cx, headCy - 75, 8, 0, Math.PI * 2); ctx.fill();
+  } else if (acc === 4) { // Sunglasses
+    ctx.fillStyle = '#111';
+    ctx.beginPath(); ctx.ellipse(cx - eyeSpread, headCy - 10, eyeSize + 6, eyeSize * 0.7, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + eyeSpread, headCy - 10, eyeSize + 6, eyeSize * 0.7, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillRect(cx - eyeSpread + eyeSize, headCy - 13, eyeSpread * 2 - eyeSize * 2, 5);
+    ctx.fillRect(cx - eyeSpread - eyeSize - 15, headCy - 13, 18, 5);
+    ctx.fillRect(cx + eyeSpread + eyeSize - 3, headCy - 13, 18, 5);
+    // Lens shine
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath(); ctx.ellipse(cx - eyeSpread - 5, headCy - 14, eyeSize * 0.3, eyeSize * 0.5, -0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + eyeSpread - 5, headCy - 14, eyeSize * 0.3, eyeSize * 0.5, -0.3, 0, Math.PI * 2); ctx.fill();
+  } else if (acc === 5) { // Bow tie
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath(); ctx.moveTo(cx, cy - 10); ctx.lineTo(cx - 20, cy - 25); ctx.lineTo(cx - 20, cy + 5); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(cx, cy - 10); ctx.lineTo(cx + 20, cy - 25); ctx.lineTo(cx + 20, cy + 5); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy - 10, 5, 0, Math.PI * 2); ctx.fill();
+  } else if (acc === 6) { // Headband
+    ctx.fillStyle = `hsl(${Math.floor(rng(seed+21)*360)},70%,50%)`;
+    ctx.beginPath(); ctx.ellipse(cx, headCy - 35, 52, 12, 0, Math.PI, Math.PI * 2); ctx.fill();
+    ctx.fillRect(cx + 35, headCy - 50, 8, 25);
+    ctx.fillRect(cx + 43, headCy - 50, 8, 20);
+  } else if (acc === 7) { // Halo
+    ctx.strokeStyle = '#fbbf24'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.ellipse(cx, headCy - 65, 35, 8, 0, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = 'rgba(251,191,36,0.1)';
+    ctx.beginPath(); ctx.ellipse(cx, headCy - 65, 35, 8, 0, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // ─── SPOTS / PATTERNS ───
+  const spotCount = Math.floor(rng(seed + 14) * 6) + 2;
+  ctx.fillStyle = `hsla(${hue + 10},${sat}%,${bodyLight - 5}%,0.4)`;
+  for (let i = 0; i < spotCount; i++) {
+    const sx = cx + (rng(seed + 30 + i) - 0.5) * 100;
+    const sy = cy + (rng(seed + 40 + i) - 0.5) * 80;
+    const sr = rng(seed + 50 + i) * 8 + 3;
+    ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // ─── AMBIENT GLOW ───
+  ctx.globalCompositeOperation = 'screen';
+  const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 140);
+  glowGrad.addColorStop(0, `hsla(${hue},${sat}%,50%,0.05)`);
+  glowGrad.addColorStop(1, 'transparent');
+  ctx.fillStyle = glowGrad;
+  ctx.fillRect(0, 0, S, S);
+  ctx.globalCompositeOperation = 'source-over';
 }
 
 /* ─── HERO SHOWCASE ─── */
