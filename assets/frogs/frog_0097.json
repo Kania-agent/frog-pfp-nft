@@ -1,0 +1,31 @@
+{
+  "name": "Frog PFP #97",
+  "description": "A unique animated pixel art frog from the Frog PFP collection. Rarity: Legendary. 97 of 100.",
+  "image": "ipfs://PLACEHOLDER/frog_0097_legendary.gif",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": 97
+    },
+    {
+      "trait_type": "Eye Style",
+      "value": "Cute"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smile"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Wings"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Idle"
+    }
+  ]
+}

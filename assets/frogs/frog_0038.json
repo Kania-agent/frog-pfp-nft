@@ -1,0 +1,31 @@
+{
+  "name": "Frog PFP #38",
+  "description": "A unique animated pixel art frog from the Frog PFP collection. Rarity: Uncommon. 38 of 100.",
+  "image": "ipfs://PLACEHOLDER/frog_0038_uncommon.gif",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": 38
+    },
+    {
+      "trait_type": "Eye Style",
+      "value": "Round"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smile"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Stripe"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Idle"
+    }
+  ]
+}

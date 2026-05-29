@@ -1,0 +1,12 @@
+{
+  "name": "Frog PFP #0",
+  "description": "A unique animated pixel art frog from the Frog PFP collection. 1 of 100.",
+  "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/0.gif",
+  "attributes": [
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Background", "value": "Dark" },
+    { "trait_type": "Body Color", "value": "Green" },
+    { "trait_type": "Eye Style", "value": "Round" },
+    { "trait_type": "Animation", "value": "Idle" }
+  ]
+}

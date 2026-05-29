@@ -1,0 +1,31 @@
+{
+  "name": "Frog PFP #37",
+  "description": "A unique animated pixel art frog from the Frog PFP collection. Rarity: Mythic. 37 of 100.",
+  "image": "ipfs://PLACEHOLDER/frog_0037_mythic.gif",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Mythic"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": 37
+    },
+    {
+      "trait_type": "Eye Style",
+      "value": "Wide"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Tiny"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Halo Fire"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Idle"
+    }
+  ]
+}

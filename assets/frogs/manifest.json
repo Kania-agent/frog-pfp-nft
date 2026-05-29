@@ -1,0 +1,602 @@
+[
+  {
+    "token_id": 1,
+    "rarity": "uncommon",
+    "gif": "frog_0001_uncommon.gif",
+    "meta": "frog_0001.json"
+  },
+  {
+    "token_id": 2,
+    "rarity": "uncommon",
+    "gif": "frog_0002_uncommon.gif",
+    "meta": "frog_0002.json"
+  },
+  {
+    "token_id": 3,
+    "rarity": "legendary",
+    "gif": "frog_0003_legendary.gif",
+    "meta": "frog_0003.json"
+  },
+  {
+    "token_id": 4,
+    "rarity": "common",
+    "gif": "frog_0004_common.gif",
+    "meta": "frog_0004.json"
+  },
+  {
+    "token_id": 5,
+    "rarity": "rare",
+    "gif": "frog_0005_rare.gif",
+    "meta": "frog_0005.json"
+  },
+  {
+    "token_id": 6,
+    "rarity": "uncommon",
+    "gif": "frog_0006_uncommon.gif",
+    "meta": "frog_0006.json"
+  },
+  {
+    "token_id": 7,
+    "rarity": "common",
+    "gif": "frog_0007_common.gif",
+    "meta": "frog_0007.json"
+  },
+  {
+    "token_id": 8,
+    "rarity": "rare",
+    "gif": "frog_0008_rare.gif",
+    "meta": "frog_0008.json"
+  },
+  {
+    "token_id": 9,
+    "rarity": "common",
+    "gif": "frog_0009_common.gif",
+    "meta": "frog_0009.json"
+  },
+  {
+    "token_id": 10,
+    "rarity": "rare",
+    "gif": "frog_0010_rare.gif",
+    "meta": "frog_0010.json"
+  },
+  {
+    "token_id": 11,
+    "rarity": "rare",
+    "gif": "frog_0011_rare.gif",
+    "meta": "frog_0011.json"
+  },
+  {
+    "token_id": 12,
+    "rarity": "common",
+    "gif": "frog_0012_common.gif",
+    "meta": "frog_0012.json"
+  },
+  {
+    "token_id": 13,
+    "rarity": "uncommon",
+    "gif": "frog_0013_uncommon.gif",
+    "meta": "frog_0013.json"
+  },
+  {
+    "token_id": 14,
+    "rarity": "uncommon",
+    "gif": "frog_0014_uncommon.gif",
+    "meta": "frog_0014.json"
+  },
+  {
+    "token_id": 15,
+    "rarity": "rare",
+    "gif": "frog_0015_rare.gif",
+    "meta": "frog_0015.json"
+  },
+  {
+    "token_id": 16,
+    "rarity": "uncommon",
+    "gif": "frog_0016_uncommon.gif",
+    "meta": "frog_0016.json"
+  },
+  {
+    "token_id": 17,
+    "rarity": "uncommon",
+    "gif": "frog_0017_uncommon.gif",
+    "meta": "frog_0017.json"
+  },
+  {
+    "token_id": 18,
+    "rarity": "legendary",
+    "gif": "frog_0018_legendary.gif",
+    "meta": "frog_0018.json"
+  },
+  {
+    "token_id": 19,
+    "rarity": "rare",
+    "gif": "frog_0019_rare.gif",
+    "meta": "frog_0019.json"
+  },
+  {
+    "token_id": 20,
+    "rarity": "common",
+    "gif": "frog_0020_common.gif",
+    "meta": "frog_0020.json"
+  },
+  {
+    "token_id": 21,
+    "rarity": "common",
+    "gif": "frog_0021_common.gif",
+    "meta": "frog_0021.json"
+  },
+  {
+    "token_id": 22,
+    "rarity": "common",
+    "gif": "frog_0022_common.gif",
+    "meta": "frog_0022.json"
+  },
+  {
+    "token_id": 23,
+    "rarity": "common",
+    "gif": "frog_0023_common.gif",
+    "meta": "frog_0023.json"
+  },
+  {
+    "token_id": 24,
+    "rarity": "legendary",
+    "gif": "frog_0024_legendary.gif",
+    "meta": "frog_0024.json"
+  },
+  {
+    "token_id": 25,
+    "rarity": "epic",
+    "gif": "frog_0025_epic.gif",
+    "meta": "frog_0025.json"
+  },
+  {
+    "token_id": 26,
+    "rarity": "uncommon",
+    "gif": "frog_0026_uncommon.gif",
+    "meta": "frog_0026.json"
+  },
+  {
+    "token_id": 27,
+    "rarity": "epic",
+    "gif": "frog_0027_epic.gif",
+    "meta": "frog_0027.json"
+  },
+  {
+    "token_id": 28,
+    "rarity": "common",
+    "gif": "frog_0028_common.gif",
+    "meta": "frog_0028.json"
+  },
+  {
+    "token_id": 29,
+    "rarity": "epic",
+    "gif": "frog_0029_epic.gif",
+    "meta": "frog_0029.json"
+  },
+  {
+    "token_id": 30,
+    "rarity": "common",
+    "gif": "frog_0030_common.gif",
+    "meta": "frog_0030.json"
+  },
+  {
+    "token_id": 31,
+    "rarity": "common",
+    "gif": "frog_0031_common.gif",
+    "meta": "frog_0031.json"
+  },
+  {
+    "token_id": 32,
+    "rarity": "uncommon",
+    "gif": "frog_0032_uncommon.gif",
+    "meta": "frog_0032.json"
+  },
+  {
+    "token_id": 33,
+    "rarity": "uncommon",
+    "gif": "frog_0033_uncommon.gif",
+    "meta": "frog_0033.json"
+  },
+  {
+    "token_id": 34,
+    "rarity": "uncommon",
+    "gif": "frog_0034_uncommon.gif",
+    "meta": "frog_0034.json"
+  },
+  {
+    "token_id": 35,
+    "rarity": "rare",
+    "gif": "frog_0035_rare.gif",
+    "meta": "frog_0035.json"
+  },
+  {
+    "token_id": 36,
+    "rarity": "uncommon",
+    "gif": "frog_0036_uncommon.gif",
+    "meta": "frog_0036.json"
+  },
+  {
+    "token_id": 37,
+    "rarity": "mythic",
+    "gif": "frog_0037_mythic.gif",
+    "meta": "frog_0037.json"
+  },
+  {
+    "token_id": 38,
+    "rarity": "uncommon",
+    "gif": "frog_0038_uncommon.gif",
+    "meta": "frog_0038.json"
+  },
+  {
+    "token_id": 39,
+    "rarity": "epic",
+    "gif": "frog_0039_epic.gif",
+    "meta": "frog_0039.json"
+  },
+  {
+    "token_id": 40,
+    "rarity": "common",
+    "gif": "frog_0040_common.gif",
+    "meta": "frog_0040.json"
+  },
+  {
+    "token_id": 41,
+    "rarity": "common",
+    "gif": "frog_0041_common.gif",
+    "meta": "frog_0041.json"
+  },
+  {
+    "token_id": 42,
+    "rarity": "common",
+    "gif": "frog_0042_common.gif",
+    "meta": "frog_0042.json"
+  },
+  {
+    "token_id": 43,
+    "rarity": "common",
+    "gif": "frog_0043_common.gif",
+    "meta": "frog_0043.json"
+  },
+  {
+    "token_id": 44,
+    "rarity": "uncommon",
+    "gif": "frog_0044_uncommon.gif",
+    "meta": "frog_0044.json"
+  },
+  {
+    "token_id": 45,
+    "rarity": "common",
+    "gif": "frog_0045_common.gif",
+    "meta": "frog_0045.json"
+  },
+  {
+    "token_id": 46,
+    "rarity": "rare",
+    "gif": "frog_0046_rare.gif",
+    "meta": "frog_0046.json"
+  },
+  {
+    "token_id": 47,
+    "rarity": "uncommon",
+    "gif": "frog_0047_uncommon.gif",
+    "meta": "frog_0047.json"
+  },
+  {
+    "token_id": 48,
+    "rarity": "uncommon",
+    "gif": "frog_0048_uncommon.gif",
+    "meta": "frog_0048.json"
+  },
+  {
+    "token_id": 49,
+    "rarity": "common",
+    "gif": "frog_0049_common.gif",
+    "meta": "frog_0049.json"
+  },
+  {
+    "token_id": 50,
+    "rarity": "common",
+    "gif": "frog_0050_common.gif",
+    "meta": "frog_0050.json"
+  },
+  {
+    "token_id": 51,
+    "rarity": "mythic",
+    "gif": "frog_0051_mythic.gif",
+    "meta": "frog_0051.json"
+  },
+  {
+    "token_id": 52,
+    "rarity": "uncommon",
+    "gif": "frog_0052_uncommon.gif",
+    "meta": "frog_0052.json"
+  },
+  {
+    "token_id": 53,
+    "rarity": "common",
+    "gif": "frog_0053_common.gif",
+    "meta": "frog_0053.json"
+  },
+  {
+    "token_id": 54,
+    "rarity": "uncommon",
+    "gif": "frog_0054_uncommon.gif",
+    "meta": "frog_0054.json"
+  },
+  {
+    "token_id": 55,
+    "rarity": "common",
+    "gif": "frog_0055_common.gif",
+    "meta": "frog_0055.json"
+  },
+  {
+    "token_id": 56,
+    "rarity": "common",
+    "gif": "frog_0056_common.gif",
+    "meta": "frog_0056.json"
+  },
+  {
+    "token_id": 57,
+    "rarity": "uncommon",
+    "gif": "frog_0057_uncommon.gif",
+    "meta": "frog_0057.json"
+  },
+  {
+    "token_id": 58,
+    "rarity": "rare",
+    "gif": "frog_0058_rare.gif",
+    "meta": "frog_0058.json"
+  },
+  {
+    "token_id": 59,
+    "rarity": "common",
+    "gif": "frog_0059_common.gif",
+    "meta": "frog_0059.json"
+  },
+  {
+    "token_id": 60,
+    "rarity": "uncommon",
+    "gif": "frog_0060_uncommon.gif",
+    "meta": "frog_0060.json"
+  },
+  {
+    "token_id": 61,
+    "rarity": "common",
+    "gif": "frog_0061_common.gif",
+    "meta": "frog_0061.json"
+  },
+  {
+    "token_id": 62,
+    "rarity": "common",
+    "gif": "frog_0062_common.gif",
+    "meta": "frog_0062.json"
+  },
+  {
+    "token_id": 63,
+    "rarity": "common",
+    "gif": "frog_0063_common.gif",
+    "meta": "frog_0063.json"
+  },
+  {
+    "token_id": 64,
+    "rarity": "rare",
+    "gif": "frog_0064_rare.gif",
+    "meta": "frog_0064.json"
+  },
+  {
+    "token_id": 65,
+    "rarity": "epic",
+    "gif": "frog_0065_epic.gif",
+    "meta": "frog_0065.json"
+  },
+  {
+    "token_id": 66,
+    "rarity": "common",
+    "gif": "frog_0066_common.gif",
+    "meta": "frog_0066.json"
+  },
+  {
+    "token_id": 67,
+    "rarity": "rare",
+    "gif": "frog_0067_rare.gif",
+    "meta": "frog_0067.json"
+  },
+  {
+    "token_id": 68,
+    "rarity": "uncommon",
+    "gif": "frog_0068_uncommon.gif",
+    "meta": "frog_0068.json"
+  },
+  {
+    "token_id": 69,
+    "rarity": "legendary",
+    "gif": "frog_0069_legendary.gif",
+    "meta": "frog_0069.json"
+  },
+  {
+    "token_id": 70,
+    "rarity": "common",
+    "gif": "frog_0070_common.gif",
+    "meta": "frog_0070.json"
+  },
+  {
+    "token_id": 71,
+    "rarity": "common",
+    "gif": "frog_0071_common.gif",
+    "meta": "frog_0071.json"
+  },
+  {
+    "token_id": 72,
+    "rarity": "legendary",
+    "gif": "frog_0072_legendary.gif",
+    "meta": "frog_0072.json"
+  },
+  {
+    "token_id": 73,
+    "rarity": "uncommon",
+    "gif": "frog_0073_uncommon.gif",
+    "meta": "frog_0073.json"
+  },
+  {
+    "token_id": 74,
+    "rarity": "legendary",
+    "gif": "frog_0074_legendary.gif",
+    "meta": "frog_0074.json"
+  },
+  {
+    "token_id": 75,
+    "rarity": "uncommon",
+    "gif": "frog_0075_uncommon.gif",
+    "meta": "frog_0075.json"
+  },
+  {
+    "token_id": 76,
+    "rarity": "epic",
+    "gif": "frog_0076_epic.gif",
+    "meta": "frog_0076.json"
+  },
+  {
+    "token_id": 77,
+    "rarity": "common",
+    "gif": "frog_0077_common.gif",
+    "meta": "frog_0077.json"
+  },
+  {
+    "token_id": 78,
+    "rarity": "rare",
+    "gif": "frog_0078_rare.gif",
+    "meta": "frog_0078.json"
+  },
+  {
+    "token_id": 79,
+    "rarity": "epic",
+    "gif": "frog_0079_epic.gif",
+    "meta": "frog_0079.json"
+  },
+  {
+    "token_id": 80,
+    "rarity": "rare",
+    "gif": "frog_0080_rare.gif",
+    "meta": "frog_0080.json"
+  },
+  {
+    "token_id": 81,
+    "rarity": "uncommon",
+    "gif": "frog_0081_uncommon.gif",
+    "meta": "frog_0081.json"
+  },
+  {
+    "token_id": 82,
+    "rarity": "common",
+    "gif": "frog_0082_common.gif",
+    "meta": "frog_0082.json"
+  },
+  {
+    "token_id": 83,
+    "rarity": "common",
+    "gif": "frog_0083_common.gif",
+    "meta": "frog_0083.json"
+  },
+  {
+    "token_id": 84,
+    "rarity": "epic",
+    "gif": "frog_0084_epic.gif",
+    "meta": "frog_0084.json"
+  },
+  {
+    "token_id": 85,
+    "rarity": "legendary",
+    "gif": "frog_0085_legendary.gif",
+    "meta": "frog_0085.json"
+  },
+  {
+    "token_id": 86,
+    "rarity": "common",
+    "gif": "frog_0086_common.gif",
+    "meta": "frog_0086.json"
+  },
+  {
+    "token_id": 87,
+    "rarity": "uncommon",
+    "gif": "frog_0087_uncommon.gif",
+    "meta": "frog_0087.json"
+  },
+  {
+    "token_id": 88,
+    "rarity": "rare",
+    "gif": "frog_0088_rare.gif",
+    "meta": "frog_0088.json"
+  },
+  {
+    "token_id": 89,
+    "rarity": "common",
+    "gif": "frog_0089_common.gif",
+    "meta": "frog_0089.json"
+  },
+  {
+    "token_id": 90,
+    "rarity": "rare",
+    "gif": "frog_0090_rare.gif",
+    "meta": "frog_0090.json"
+  },
+  {
+    "token_id": 91,
+    "rarity": "epic",
+    "gif": "frog_0091_epic.gif",
+    "meta": "frog_0091.json"
+  },
+  {
+    "token_id": 92,
+    "rarity": "common",
+    "gif": "frog_0092_common.gif",
+    "meta": "frog_0092.json"
+  },
+  {
+    "token_id": 93,
+    "rarity": "common",
+    "gif": "frog_0093_common.gif",
+    "meta": "frog_0093.json"
+  },
+  {
+    "token_id": 94,
+    "rarity": "common",
+    "gif": "frog_0094_common.gif",
+    "meta": "frog_0094.json"
+  },
+  {
+    "token_id": 95,
+    "rarity": "common",
+    "gif": "frog_0095_common.gif",
+    "meta": "frog_0095.json"
+  },
+  {
+    "token_id": 96,
+    "rarity": "common",
+    "gif": "frog_0096_common.gif",
+    "meta": "frog_0096.json"
+  },
+  {
+    "token_id": 97,
+    "rarity": "legendary",
+    "gif": "frog_0097_legendary.gif",
+    "meta": "frog_0097.json"
+  },
+  {
+    "token_id": 98,
+    "rarity": "common",
+    "gif": "frog_0098_common.gif",
+    "meta": "frog_0098.json"
+  },
+  {
+    "token_id": 99,
+    "rarity": "common",
+    "gif": "frog_0099_common.gif",
+    "meta": "frog_0099.json"
+  },
+  {
+    "token_id": 100,
+    "rarity": "epic",
+    "gif": "frog_0100_epic.gif",
+    "meta": "frog_0100.json"
+  }
+]

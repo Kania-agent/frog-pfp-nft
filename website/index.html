@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FROG PFP — 100 Pixel Frogs</title>
+<meta name="description" content="A curated collection of 100 unique animated pixel art frogs on Ethereum. Mint yours for 0.001 ETH.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #000;
+  --bg-raised: #0a0a0a;
+  --bg-card: #111;
+  --bg-card-hover: #161616;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --text: #fff;
+  --text-secondary: rgba(255,255,255,0.5);
+  --text-tertiary: rgba(255,255,255,0.25);
+  --accent: #39FF14;
+  --accent-dim: rgba(57,255,20,0.1);
+  --accent-mid: rgba(57,255,20,0.2);
+  --accent-glow: rgba(57,255,20,0.35);
+  --danger: #ff4444;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Space Grotesk', system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 8px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 clamp(16px, 4vw, 48px);
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  font-weight: 700; font-size: 14px; letter-spacing: 0.08em;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 13px; color: var(--text-secondary); text-decoration: none;
+  transition: color 0.2s; position: relative;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--accent); }
+.nav-cta {
+  font-size: 12px; font-weight: 500; font-family: var(--sans);
+  padding: 8px 16px; border-radius: 6px;
+  background: var(--accent); color: #000;
+  border: none; cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.nav-cta:hover { box-shadow: 0 0 20px var(--accent-glow); }
+.nav-cta.connected { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); font-family: var(--mono); font-size: 11px; }
+.nav-cta.connected:hover { border-color: var(--border-hover); box-shadow: none; }
+
+/* ─── MOBILE NAV TOGGLE ─── */
+.nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; font-size: 20px; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+  padding: 56px clamp(16px, 4vw, 48px) 0;
+  max-width: 1200px; margin: 0 auto;
+}
+.hero-text { display: flex; flex-direction: column; gap: 24px; }
+.hero-tag {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-title {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700; line-height: 1;
+  letter-spacing: -0.03em;
+}
+.hero-title .accent { color: var(--accent); }
+.hero-desc {
+  font-size: 16px; color: var(--text-secondary);
+  max-width: 420px; line-height: 1.6;
+}
+.hero-stats {
+  display: flex; gap: 32px; padding-top: 16px;
+}
+.hero-stat-val { font-size: 28px; font-weight: 700; font-family: var(--mono); }
+.hero-stat-label { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+}
+.frog-showcase {
+  width: 100%; max-width: 400px; aspect-ratio: 1;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  position: relative; overflow: hidden;
+}
+.frog-showcase canvas {
+  image-rendering: pixelated;
+  width: 70%; height: 70%;
+  transition: opacity 0.6s ease;
+}
+.frog-showcase canvas.fading { opacity: 0; }
+.frog-showcase-seed {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px; color: var(--text-tertiary);
+  background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 4px;
+}
+.frog-showcase::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 120%, rgba(57,255,20,0.06), transparent 60%);
+  pointer-events: none;
+}
+
+/* ─── SECTION ─── */
+section { padding: 80px clamp(16px, 4vw, 48px); max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.section-desc { font-size: 15px; color: var(--text-secondary); max-width: 500px; margin-bottom: 40px; }
+
+/* ─── MINT ─── */
+.mint-container {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  align-items: start;
+}
+.mint-preview {
+  aspect-ratio: 1; max-width: 360px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  position: relative;
+}
+.mint-preview canvas { image-rendering: pixelated; width: 70%; height: 70%; }
+.mint-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--accent-dim); color: var(--accent);
+  font-size: 10px; font-weight: 600;
+  padding: 4px 8px; border-radius: 4px;
+  font-family: var(--mono);
+}
+.mint-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+.mint-card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px;
+}
+.mint-card-title { font-size: 18px; font-weight: 600; }
+.mint-supply {
+  font-family: var(--mono); font-size: 13px; color: var(--text-secondary);
+}
+.mint-supply span { color: var(--accent); font-weight: 500; }
+
+.mint-price-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.mint-price-label { font-size: 13px; color: var(--text-secondary); }
+.mint-price-val { font-family: var(--mono); font-size: 15px; font-weight: 500; }
+
+.mint-qty {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 20px;
+}
+.mint-qty-btn {
+  width: 40px; height: 40px;
+  background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text);
+  font-size: 18px; cursor: pointer;
+  display: grid; place-items: center;
+  transition: all 0.15s;
+  font-family: var(--sans);
+}
+.mint-qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+.mint-qty-val {
+  font-family: var(--mono); font-size: 20px; font-weight: 600;
+  min-width: 40px; text-align: center;
+}
+.mint-qty-max {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 6px 12px; border-radius: 4px;
+  background: var(--accent-dim); color: var(--accent);
+  border: none; cursor: pointer; font-family: var(--sans);
+  transition: all 0.15s;
+}
+.mint-qty-max:hover { background: var(--accent-mid); }
+
+.mint-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px; background: var(--bg-raised); border-radius: 8px;
+  margin-bottom: 20px;
+}
+.mint-total-label { font-size: 13px; color: var(--text-secondary); }
+.mint-total-val { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--accent); }
+
+.mint-btn {
+  width: 100%; padding: 14px;
+  background: var(--accent); color: #000;
+  border: none; border-radius: 8px;
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s var(--ease);
+  letter-spacing: 0.02em;
+  position: relative;
+}
+.mint-btn:hover { box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-1px); }
+.mint-btn:active { transform: translateY(0); }
+.mint-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+.mint-btn .spinner {
+  display: none; width: 16px; height: 16px;
+  border: 2px solid rgba(0,0,0,0.2); border-top-color: #000;
+  border-radius: 50%; animation: spin 0.6s linear infinite;
+  margin: 0 auto;
+}
+.mint-btn.loading .btn-text { display: none; }
+.mint-btn.loading .spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.mint-feedback {
+  margin-top: 16px; font-size: 12px; color: var(--text-secondary);
+  text-align: center; min-height: 20px;
+}
+.mint-feedback a { color: var(--accent); }
+.mint-feedback .err { color: var(--danger); }
+
+/* ─── RARITY BREAKDOWN ─── */
+.rarity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+.rarity-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s var(--ease);
+}
+.rarity-stat-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.rarity-stat-name {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.rarity-stat-count {
+  font-family: var(--mono); font-size: 28px; font-weight: 700;
+}
+.rarity-stat-pct {
+  font-family: var(--mono); font-size: 12px; color: var(--text-tertiary);
+  margin-top: 4px;
+}
+.rarity-stat-bar {
+  width: 100%; height: 3px; background: var(--bg-raised);
+  border-radius: 2px; margin-top: 12px; overflow: hidden;
+}
+.rarity-stat-bar-fill {
+  height: 100%; border-radius: 2px;
+  transition: width 0.6s var(--ease);
+}
+
+/* ─── GALLERY ─── */
+.gallery-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 32px;
+}
+.gallery-count { font-family: var(--mono); font-size: 13px; color: var(--text-secondary); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+.nft-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s var(--ease);
+  cursor: default;
+}
+.nft-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.nft-card-img {
+  aspect-ratio: 1; background: var(--bg-raised);
+  display: grid; place-items: center;
+  position: relative;
+}
+.nft-card-img canvas { image-rendering: pixelated; width: 80%; height: 80%; }
+.nft-card-body { padding: 12px; }
+.nft-card-name { font-size: 13px; font-weight: 500; }
+.nft-card-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 4px;
+}
+.nft-card-id { font-family: var(--mono); font-size: 11px; color: var(--text-tertiary); }
+.nft-card-rarity {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 2px 6px; border-radius: 3px;
+  text-transform: uppercase;
+}
+.rarity-common { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+.rarity-uncommon { background: rgba(57,255,20,0.08); color: #39FF14; }
+.rarity-rare { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.rarity-epic { background: rgba(168,85,247,0.1); color: #a855f7; }
+.rarity-legendary { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.rarity-mythic { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+/* ─── FOOTER ─── */
+.footer {
+  padding: 48px clamp(16px, 4vw, 48px);
+  border-top: 1px solid var(--border);
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap;
+}
+.footer-brand { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.footer-brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.footer-copy { font-size: 12px; color: var(--text-tertiary); max-width: 280px; line-height: 1.6; }
+.footer-col h4 {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block; font-size: 13px; color: var(--text-tertiary);
+  text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--text); }
+.footer-bottom {
+  margin-top: 40px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--text-tertiary);
+}
+.footer-bottom a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+.footer-bottom a:hover { color: var(--accent); }
+
+/* ─── TOAST ─── */
+.toast-container {
+  position: fixed; bottom: 24px; right: 24px; z-index: 200;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 20px;
+  font-size: 13px; color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transform: translateX(120%); transition: transform 0.3s var(--ease);
+  max-width: 340px;
+}
+.toast.show { transform: translateX(0); }
+.toast.toast-err { border-color: rgba(255,68,68,0.3); }
+.toast.toast-ok { border-color: rgba(57,255,20,0.3); }
+
+/* ─── EMPTY STATE ─── */
+.empty-state {
+  text-align: center; padding: 60px 20px;
+  color: var(--text-tertiary); font-size: 13px;
+  grid-column: 1 / -1;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg-card); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #222; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 56px; left: 0; right: 0;
+    background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+    padding: 16px 24px; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-toggle { display: block; }
+  .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; gap: 32px; }
+  .hero-visual { order: -1; }
+  .frog-showcase { max-width: 280px; }
+  .mint-container { grid-template-columns: 1fr; }
+  .mint-preview { max-width: 280px; margin: 0 auto; }
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .footer-inner { flex-direction: column; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .rarity-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand"><div class="dot"></div>FROG PFP</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#hero" class="active">Home</a>
+    <a href="#mint">Mint</a>
+    <a href="#collection">Collection</a>
+    <a href="#rarity">Rarity</a>
+  </div>
+  <button class="nav-cta" id="connectBtn">Connect Wallet</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Ethereum Mainnet</div>
+    <h1 class="hero-title">100 Pixel<br><span class="accent">Frogs</span></h1>
+    <p class="hero-desc">A curated collection of 100 unique animated pixel art frogs. Each one procedurally generated at 48&times;48, permanently stored on Ethereum.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val" id="heroMinted">&mdash;</div>
+        <div class="hero-stat-label">Minted</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">100</div>
+        <div class="hero-stat-label">Total</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">0.001</div>
+        <div class="hero-stat-label">ETH Each</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="frog-showcase">
+      <canvas id="heroFrog" width="48" height="48"></canvas>
+      <div class="frog-showcase-seed" id="heroSeed">seed: 42</div>
+    </div>
+  </div>
+</section>
+
+<!-- MINT -->
+<section id="mint">
+  <div class="section-label">Mint</div>
+  <h2 class="section-title">Claim Your Frog</h2>
+  <p class="section-desc">Select quantity and mint. Each frog is randomly assigned unique traits on reveal.</p>
+
+  <div class="mint-container">
+    <div class="mint-preview">
+      <canvas id="mintFrog" width="48" height="48"></canvas>
+      <div class="mint-badge">LIVE</div>
+    </div>
+    <div class="mint-card">
+      <div class="mint-card-header">
+        <div class="mint-card-title">Mint Frog PFP</div>
+        <div class="mint-supply"><span id="mintMinted">0</span> / 100</div>
+      </div>
+      <div class="mint-price-row">
+        <div class="mint-price-label">Price per frog</div>
+        <div class="mint-price-val">0.001 ETH</div>
+      </div>
+      <div class="mint-qty">
+        <button class="mint-qty-btn" id="qtyMinus">&minus;</button>
+        <div class="mint-qty-val" id="qtyVal">1</div>
+        <button class="mint-qty-btn" id="qtyPlus">+</button>
+        <button class="mint-qty-max" id="qtyMax">MAX</button>
+      </div>
+      <div class="mint-total">
+        <div class="mint-total-label">Total</div>
+        <div class="mint-total-val" id="totalPrice">0.001 ETH</div>
+      </div>
+      <button class="mint-btn" id="mintBtn"><span class="btn-text">Mint</span><div class="spinner"></div></button>
+      <div class="mint-feedback" id="feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="gallery-header">
+    <div>
+      <div class="section-label">Collection</div>
+      <h2 class="section-title">All Frogs</h2>
+    </div>
+    <div class="gallery-count" id="galleryCount">0 items</div>
+  </div>
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="empty-state">Connect wallet to view collection</div>
+  </div>
+</section>
+
+<!-- RARITY BREAKDOWN -->
+<section id="rarity">
+  <div class="section-label">Rarity</div>
+  <h2 class="section-title">Rarity Breakdown</h2>
+  <p class="section-desc">Distribution of rarity tiers across the entire 100-frog collection.</p>
+  <div class="rarity-grid" id="rarityGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><div class="dot"></div>FROG PFP</div>
+      <div class="footer-copy">A curated collection of 100 unique pixel art frogs on Ethereum. Built with love and pixels.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Links</h4>
+      <a href="https://opensea.io" target="_blank" rel="noopener">OpenSea</a>
+      <a href="https://etherscan.io" target="_blank" rel="noopener" id="etherscanLink">Etherscan</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <a href="https://twitter.com" target="_blank" rel="noopener">Twitter / X</a>
+      <a href="https://discord.com" target="_blank" rel="noopener">Discord</a>
+      <a href="https://t.me" target="_blank" rel="noopener">Telegram</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Frog PFP. All rights reserved.</div>
+    <div>Contract: <a href="#" id="footerContract" target="_blank" rel="noopener">0x&hellip;</a></div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════
+const CONTRACT_ADDRESS = "0xYOUR_CONTRACT_ADDRESS"; // CHANGE_AFTER_DEPLOY
+const CHAIN_ID = 1; // 1 = mainnet, 11155111 = sepolia
+const EXPLORER_BASE = CHAIN_ID === 1 ? "https://etherscan.io" : "https://sepolia.etherscan.io";
+
+const ABI = [
+  "function mint(uint256 quantity) external payable",
+  "function totalMinted() view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
+  "function MAX_SUPPLY() view returns (uint256)",
+  "function MINT_PRICE() view returns (uint256)",
+  "function ownerOf(uint256 tokenId) view returns (address)",
+  "function tokenURI(uint256 tokenId) view returns (string)",
+  "function tokenByIndex(uint256 index) view returns (uint256)",
+  "function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)",
+  "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)"
+];
+
+const MINT_PRICE_ETH = 0.001;
+const MAX_SUPPLY = 100;
+const MINT_CAP = 10; // max per tx
+const SHOWCASE_SEEDS = [42, 7, 256, 1337, 9999, 314, 404, 8080];
+const SHOWCASE_INTERVAL = 3000;
+
+let provider, signer, contract, currentAddr;
+let qty = 1;
+let mintedCount = 0;
+let isMinting = false;
+let showcaseIndex = 0;
+let showcaseTimer = null;
+
+// ═══════════════════════════════════════════════════════════════
+// RARITY SYSTEM — mirrors the on-chain / metadata distribution
+// ═══════════════════════════════════════════════════════════════
+const RARITY_TIERS = [
+  { name: "Common",     weight: 40, css: "rarity-common",     color: "rgba(255,255,255,0.4)" },
+  { name: "Uncommon",   weight: 25, css: "rarity-uncommon",   color: "#39FF14" },
+  { name: "Rare",       weight: 15, css: "rarity-rare",       color: "#3b82f6" },
+  { name: "Epic",       weight: 10, css: "rarity-epic",       color: "#a855f7" },
+  { name: "Legendary",  weight: 8,  css: "rarity-legendary",  color: "#f59e0b" },
+  { name: "Mythic",     weight: 2,  css: "rarity-mythic",     color: "#ef4444" },
+];
+
+function getRarity(tokenId) {
+  // Deterministic rarity from tokenId — seeded PRNG
+  let h = tokenId * 2654435761;
+  h = ((h >>> 16) ^ h) * 0x45d9f3b;
+  h = ((h >>> 16) ^ h) * 0x45d9f3b;
+  h = (h >>> 16) ^ h;
+  const roll = (h & 0x7fffffff) % 100;
+  let cumulative = 0;
+  for (const tier of RARITY_TIERS) {
+    cumulative += tier.weight;
+    if (roll < cumulative) return tier;
+  }
+  return RARITY_TIERS[0];
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PIXEL FROG RENDERER — procedural 48x48 pixel art
+// ═══════════════════════════════════════════════════════════════
+const FROG_PALETTE = [
+  'transparent', // 0
+  '#1a5c1a',     // 1 dark green
+  '#2d8c2d',     // 2 mid green
+  '#39FF14',     // 3 bright green
+  '#0d3d0d',     // 4 very dark green
+  '#ffffff',     // 5 white
+  '#000000',     // 6 black
+  '#ff4444',     // 7 red accent
+  '#ffcc00',     // 8 gold accent
+  '#66ff66',     // 9 light green
+  '#1a3a1a',     // 10 deep shadow
+];
+
+function seededRandom(seed) {
+  let s = seed | 0;
+  return function() {
+    s = (s * 16807 + 1) % 2147483647;
+    return (s & 0x7fffffff) / 2147483647;
+  };
+}
+
+function generateFrogData(seed) {
+  const data = new Uint8Array(48 * 48);
+  const rng = seededRandom(seed);
+
+  // Derive trait variations from seed
+  const bodyHue = rng();       // body shade distribution
+  const eyeSize = 3 + Math.floor(rng() * 3); // 3-5
+  const bellyBrightness = rng();
+  const hasCrown = rng() < 0.05;
+  const mouthCurve = rng() * 2 - 1; // -1 to 1
+
+  // Body (ellipse around center 24,28)
+  for (let y = 6; y < 44; y++) {
+    for (let x = 4; x < 44; x++) {
+      const dx = (x - 24) / 19;
+      const dy = (y - 28) / 16;
+      const dist = dx * dx + dy * dy;
+      if (dist < 1) {
+        const noise = rng();
+        let color;
+        if (dist > 0.85) {
+          color = 10; // edge shadow
+        } else if (noise < 0.15) {
+          color = 1; // dark spots
+        } else if (noise < 0.55) {
+          color = 2;
+        } else {
+          color = bodyHue < 0.3 ? 9 : 3;
+        }
+        data[y * 48 + x] = color;
+      }
+    }
+  }
+
+  // Eyes
+  const eyeL = [16, 18], eyeR = [31, 18];
+  for (const [ex, ey] of [eyeL, eyeR]) {
+    const r2 = eyeSize * eyeSize;
+    for (let dy = -eyeSize; dy <= eyeSize; dy++) {
+      for (let dx = -eyeSize; dx <= eyeSize; dx++) {
+        if (dx * dx + dy * dy <= r2) {
+          const px = ex + dx, py = ey + dy;
+          if (px >= 0 && px < 48 && py >= 0 && py < 48) {
+            data[py * 48 + px] = 5; // white
+          }
+        }
+      }
+    }
+    // Pupil
+    const pSize = Math.max(2, eyeSize - 2);
+    const pOff = Math.floor(rng() * 2); // slight offset for character
+    for (let dy = -pSize; dy <= pSize; dy++) {
+      for (let dx = -pSize; dx <= pSize; dx++) {
+        if (dx * dx + dy * dy <= pSize * pSize) {
+          const px = ex + dx + pOff, py = ey + dy;
+          if (px >= 0 && px < 48 && py >= 0 && py < 48) {
+            data[py * 48 + px] = 6; // black pupil
+          }
+        }
+      }
+    }
+  }
+
+  // Mouth
+  const mouthY = 32;
+  for (let x = 14; x < 34; x++) {
+    const curve = Math.sin((x - 14) / 20 * Math.PI) * mouthCurve * 2;
+    const y = mouthY + Math.round(curve);
+    if (y >= 0 && y < 48) data[y * 48 + x] = 4;
+  }
+
+  // Belly highlight
+  for (let y = 26; y < 38; y++) {
+    for (let x = 16; x < 32; x++) {
+      const dx = (x - 24) / 8;
+      const dy = (y - 32) / 6;
+      if (dx * dx + dy * dy < 1 && data[y * 48 + x] !== 0) {
+        data[y * 48 + x] = bellyBrightness < 0.4 ? 9 : 3;
+      }
+    }
+  }
+
+  // Front legs
+  for (let side = 0; side < 2; side++) {
+    const baseX = side === 0 ? 8 : 35;
+    const legLen = 3 + Math.floor(rng() * 3);
+    for (let i = 0; i < legLen; i++) {
+      const lx = baseX + Math.floor(rng() * 4) - 1;
+      const ly = 38 + i;
+      if (ly < 48 && lx >= 0 && lx < 48) data[ly * 48 + lx] = 2;
+      if (ly < 48 && lx + 1 < 48) data[ly * 48 + lx + 1] = 1;
+    }
+    // Feet/toes
+    const fy = Math.min(47, 38 + legLen);
+    for (let t = 0; t < 3; t++) {
+      const tx = baseX - 1 + t * 2;
+      if (tx >= 0 && tx < 48) data[fy * 48 + tx] = 1;
+    }
+  }
+
+  // Crown for rare seeds
+  if (hasCrown) {
+    for (let x = 18; x < 30; x++) {
+      const peak = (x === 20 || x === 24 || x === 28) ? 8 : 10;
+      for (let y = peak; y < 12; y++) {
+        if (y >= 0 && y < 48 && data[y * 48 + x] === 0) {
+          data[y * 48 + x] = 8; // gold
+        }
+      }
+    }
+  }
+
+  return data;
+}
+
+function renderFrog(canvas, seed) {
+  const ctx = canvas.getContext('2d');
+  const data = generateFrogData(seed);
+  ctx.clearRect(0, 0, 48, 48);
+  for (let y = 0; y < 48; y++) {
+    for (let x = 0; x < 48; x++) {
+      const idx = data[y * 48 + x];
+      if (idx > 0) {
+        ctx.fillStyle = FROG_PALETTE[idx];
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HERO SHOWCASE — cycles seeds with fade
+// ═══════════════════════════════════════════════════════════════
+function startShowcase() {
+  const canvas = document.getElementById('heroFrog');
+  const seedLabel = document.getElementById('heroSeed');
+
+  function cycle() {
+    canvas.classList.add('fading');
+    setTimeout(() => {
+      showcaseIndex = (showcaseIndex + 1) % SHOWCASE_SEEDS.length;
+      const seed = SHOWCASE_SEEDS[showcaseIndex];
+      renderFrog(canvas, seed);
+      seedLabel.textContent = 'seed: ' + seed;
+      canvas.classList.remove('fading');
+    }, 300);
+  }
+
+  // Initial render
+  const firstSeed = SHOWCASE_SEEDS[0];
+  renderFrog(canvas, firstSeed);
+  seedLabel.textContent = 'seed: ' + firstSeed;
+
+  showcaseTimer = setInterval(cycle, SHOWCASE_INTERVAL);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TOAST NOTIFICATIONS
+// ═══════════════════════════════════════════════════════════════
+function showToast(message, type = 'info', duration = 4000) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast' + (type === 'error' ? ' toast-err' : type === 'success' ? ' toast-ok' : '');
+  toast.innerHTML = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('show'));
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// WALLET CONNECTION
+// ═══════════════════════════════════════════════════════════════
+async function connectWallet() {
+  if (!window.ethereum) {
+    showToast('Please install MetaMask or another Web3 wallet.', 'error');
+    return;
+  }
+  try {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    currentAddr = await signer.getAddress();
+
+    // Verify network
+    const network = await provider.getNetwork();
+    if (network.chainId !== CHAIN_ID) {
+      const target = CHAIN_ID === 1 ? 'Ethereum Mainnet' : 'Sepolia';
+      showToast(`Please switch to ${target} (chain ${CHAIN_ID}).`, 'error');
+    }
+
+    contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
+    const btn = document.getElementById('connectBtn');
+    btn.textContent = currentAddr.slice(0, 6) + '…' + currentAddr.slice(-4);
+    btn.classList.add('connected');
+
+    // Update footer contract link
+    const footerLink = document.getElementById('footerContract');
+    footerLink.textContent = currentAddr.slice(0, 6) + '…' + currentAddr.slice(-4);
+    footerLink.href = EXPLORER_BASE + '/address/' + CONTRACT_ADDRESS;
+
+    await refresh();
+    showToast('Wallet connected: ' + currentAddr.slice(0, 6) + '…' + currentAddr.slice(-4), 'success');
+  } catch (e) {
+    console.error('Connection failed:', e);
+    const msg = e.code === 4001 ? 'Connection rejected by user.' : 'Failed to connect wallet.';
+    showToast(msg, 'error');
+  }
+}
+
+document.getElementById('connectBtn').onclick = connectWallet;
+
+// Handle account/chain changes
+if (window.ethereum) {
+  window.ethereum.on('accountsChanged', (accounts) => {
+    if (accounts.length === 0) {
+      currentAddr = null; contract = null; signer = null;
+      const btn = document.getElementById('connectBtn');
+      btn.textContent = 'Connect Wallet';
+      btn.classList.remove('connected');
+      showToast('Wallet disconnected.', 'info');
+    } else {
+      connectWallet();
+    }
+  });
+  window.ethereum.on('chainChanged', () => window.location.reload());
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MINT LOGIC
+// ═══════════════════════════════════════════════════════════════
+function getMaxMintable() {
+  return Math.min(MINT_CAP, MAX_SUPPLY - mintedCount);
+}
+
+function updateQtyUI() {
+  document.getElementById('qtyVal').textContent = qty;
+  const total = (qty * MINT_PRICE_ETH).toFixed(3);
+  document.getElementById('totalPrice').textContent = total + ' ETH';
+}
+
+function changeQty(delta) {
+  const max = getMaxMintable();
+  qty = Math.max(1, Math.min(max, qty + delta));
+  updateQtyUI();
+}
+
+function setMaxQty() {
+  qty = Math.max(1, getMaxMintable());
+  updateQtyUI();
+}
+
+document.getElementById('qtyMinus').onclick = () => changeQty(-1);
+document.getElementById('qtyPlus').onclick = () => changeQty(1);
+document.getElementById('qtyMax').onclick = setMaxQty;
+
+async function mint() {
+  if (isMinting) return;
+
+  if (!contract) {
+    await connectWallet();
+    if (!contract) return;
+  }
+
+  const remaining = MAX_SUPPLY - mintedCount;
+  if (remaining <= 0) {
+    showToast('All 100 frogs have been minted!', 'error');
+    return;
+  }
+
+  if (qty > remaining) {
+    qty = remaining;
+    updateQtyUI();
+  }
+
+  const btn = document.getElementById('mintBtn');
+  const fb = document.getElementById('feedback');
+
+  isMinting = true;
+  btn.classList.add('loading');
+  btn.disabled = true;
+  fb.innerHTML = '';
+
+  try {
+    const value = ethers.utils.parseEther((qty * MINT_PRICE_ETH).toString());
+    const gasEstimate = await contract.estimateGas.mint(qty, { value });
+    const gasLimit = gasEstimate.mul(120).div(100); // 20% buffer
+
+    const tx = await contract.mint(qty, { value, gasLimit });
+    fb.innerHTML = 'Mining… <a href="' + EXPLORER_BASE + '/tx/' + tx.hash + '" target="_blank" rel="noopener">tx ↗</a>';
+    showToast('Transaction submitted!', 'info');
+
+    const receipt = await tx.wait();
+    fb.innerHTML = 'Minted <strong>' + qty + '</strong> frog' + (qty > 1 ? 's' : '') + '! <a href="' + EXPLORER_BASE + '/tx/' + receipt.transactionHash + '" target="_blank" rel="noopener">View tx ↗</a>';
+    showToast('Successfully minted ' + qty + ' frog' + (qty > 1 ? 's' : '') + '!', 'success');
+
+    await refresh();
+  } catch (e) {
+    console.error('Mint failed:', e);
+    let msg = 'Transaction failed.';
+    if (e.code === 4001) msg = 'Transaction rejected by user.';
+    else if (e.reason) msg = e.reason;
+    else if (e.data?.message) msg = e.data.message;
+    else if (e.message) msg = e.message.slice(0, 120);
+    fb.innerHTML = '<span class="err">' + msg + '</span>';
+    showToast(msg, 'error');
+  }
+
+  isMinting = false;
+  btn.classList.remove('loading');
+  btn.disabled = false;
+}
+
+document.getElementById('mintBtn').onclick = mint;
+
+// ═══════════════════════════════════════════════════════════════
+// DATA REFRESH
+// ═══════════════════════════════════════════════════════════════
+async function refresh() {
+  if (!contract) return;
+  try {
+    const mintedBN = await contract.totalMinted();
+    mintedCount = mintedBN.toNumber();
+
+    document.getElementById('heroMinted').textContent = mintedCount;
+    document.getElementById('mintMinted').textContent = mintedCount;
+
+    updateQtyUI();
+    buildGallery();
+    buildRarityBreakdown();
+  } catch (e) {
+    console.error('Refresh failed:', e);
+    // Fallback: show static data if contract not deployed yet
+    mintedCount = 0;
+    document.getElementById('heroMinted').textContent = '0';
+    document.getElementById('mintMinted').textContent = '0';
+    buildGallery();
+    buildRarityBreakdown();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GALLERY — renders all 100 frogs (minted + unminted previews)
+// ═══════════════════════════════════════════════════════════════
+function buildGallery() {
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+  document.getElementById('galleryCount').textContent = MAX_SUPPLY + ' items';
+
+  for (let i = 0; i < MAX_SUPPLY; i++) {
+    const rarity = getRarity(i);
+    const isMinted = i < mintedCount;
+
+    const card = document.createElement('div');
+    card.className = 'nft-card';
+    if (!isMinted) card.style.opacity = '0.5';
+
+    const imgDiv = document.createElement('div');
+    imgDiv.className = 'nft-card-img';
+    const canvas = document.createElement('canvas');
+    canvas.width = 48;
+    canvas.height = 48;
+    renderFrog(canvas, i * 12345 + 67890);
+    imgDiv.appendChild(canvas);
+
+    const body = document.createElement('div');
+    body.className = 'nft-card-body';
+
+    const ownerText = isMinted ? (currentAddr ? 'minted' : 'owned') : 'available';
+    body.innerHTML =
+      '<div class="nft-card-name">Frog #' + i + '</div>' +
+      '<div class="nft-card-meta">' +
+        '<div class="nft-card-id">' + ownerText + '</div>' +
+        '<div class="nft-card-rarity ' + rarity.css + '">' + rarity.name + '</div>' +
+      '</div>';
+
+    card.appendChild(imgDiv);
+    card.appendChild(body);
+    grid.appendChild(card);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RARITY BREAKDOWN — shows distribution stats
+// ═══════════════════════════════════════════════════════════════
+function buildRarityBreakdown() {
+  const grid = document.getElementById('rarityGrid');
+  grid.innerHTML = '';
+
+  // Count rarities across all 100 tokens
+  const counts = {};
+  for (const tier of RARITY_TIERS) counts[tier.name] = 0;
+
+  for (let i = 0; i < MAX_SUPPLY; i++) {
+    const rarity = getRarity(i);
+    counts[rarity.name]++;
+  }
+
+  for (const tier of RARITY_TIERS) {
+    const count = counts[tier.name];
+    const pct = ((count / MAX_SUPPLY) * 100).toFixed(0);
+
+    const card = document.createElement('div');
+    card.className = 'rarity-stat-card';
+    card.innerHTML =
+      '<div class="rarity-stat-name" style="color:' + tier.color + '">' + tier.name + '</div>' +
+      '<div class="rarity-stat-count" style="color:' + tier.color + '">' + count + '</div>' +
+      '<div class="rarity-stat-pct">' + pct + '% of 100</div>' +
+      '<div class="rarity-stat-bar"><div class="rarity-stat-bar-fill" style="width:' + pct + '%;background:' + tier.color + '"></div></div>';
+
+    grid.appendChild(card);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SMOOTH SCROLL NAV HIGHLIGHT
+// ═══════════════════════════════════════════════════════════════
+function updateActiveNav() {
+  const sections = ['hero', 'mint', 'collection', 'rarity'];
+  const scrollY = window.scrollY + 100;
+
+  for (let i = sections.length - 1; i >= 0; i--) {
+    const el = document.getElementById(sections[i]);
+    if (el && el.offsetTop <= scrollY) {
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('.nav-links a[href="#' + sections[i] + '"]');
+      if (link) link.classList.add('active');
+      break;
+    }
+  }
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+// Mobile nav toggle
+document.getElementById('navToggle').onclick = () => {
+  document.getElementById('navLinks').classList.toggle('open');
+};
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+function init() {
+  // Render mint preview frog
+  renderFrog(document.getElementById('mintFrog'), 1337);
+
+  // Build rarity breakdown (uses deterministic data, no contract needed)
+  buildRarityBreakdown();
+
+  // Start hero showcase
+  startShowcase();
+
+  // Auto-connect if wallet already authorized
+  if (window.ethereum) {
+    window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
+      if (accounts.length > 0) connectWallet();
+    }).catch(() => {});
+  }
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "Frog PFP #27",
+  "description": "A unique animated pixel art frog from the Frog PFP collection. Rarity: Epic. 27 of 100.",
+  "image": "ipfs://PLACEHOLDER/frog_0027_epic.gif",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": 27
+    },
+    {
+      "trait_type": "Eye Style",
+      "value": "Round"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Frog"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Crown"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Idle"
+    }
+  ]
+}
